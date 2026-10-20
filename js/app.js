@@ -4,19 +4,19 @@
 // Aucune solution n'est fournie : à vous de jouer !
 // ============================================================
 
- /*<article
-          class="cursor-pointer overflow-hidden rounded-2xl bg-white shadow-sm ring-2 ring-teal-600 transition hover:shadow-md"
-          data-id="yoga">
-          <img src="assets/images/yoga.svg" alt="Visuel du cours Yoga Flow" class="h-36 w-full object-cover" />
-          <div class="space-y-1 p-4">
-            <span
-              class="inline-block rounded-full bg-teal-50 px-2.5 py-0.5 text-xs font-medium text-teal-700">Yoga</span>
-            <h3 class="text-lg font-semibold text-slate-900">Yoga Flow</h3>
-            <p class="text-sm text-slate-600">60 min, avec Camille Roux</p>
-            <p class="pt-1 text-base font-bold text-slate-900">12 € <span class="text-sm font-normal text-slate-500">par
-                place</span></p>
-          </div>
-        </article>*/
+/*<article
+         class="cursor-pointer overflow-hidden rounded-2xl bg-white shadow-sm ring-2 ring-teal-600 transition hover:shadow-md"
+         data-id="yoga">
+         <img src="assets/images/yoga.svg" alt="Visuel du cours Yoga Flow" class="h-36 w-full object-cover" />
+         <div class="space-y-1 p-4">
+           <span
+             class="inline-block rounded-full bg-teal-50 px-2.5 py-0.5 text-xs font-medium text-teal-700">Yoga</span>
+           <h3 class="text-lg font-semibold text-slate-900">Yoga Flow</h3>
+           <p class="text-sm text-slate-600">60 min, avec Camille Roux</p>
+           <p class="pt-1 text-base font-bold text-slate-900">12 € <span class="text-sm font-normal text-slate-500">par
+               place</span></p>
+         </div>
+       </article>*/
 // ------------------------------------------------------------
 // ÉTAPE 0 : Découvrir les données
 // ------------------------------------------------------------
@@ -78,7 +78,18 @@ cours.forEach(element => {
 //  (cours choisi, créneau choisi, emplacements choisis...)
 // Indice : pourquoi un tableau est-il adapté pour les emplacements choisis ?
 
-
+const cartes = document.querySelectorAll('.cursor-pointer');
+cartes.forEach(carte => {
+    carte.addEventListener('click', function () {
+        console.log(carte.dataset.nom);
+        message.classList.toggle('ring-2');
+        message.classList.toggle('ring-teal-600');
+        cartes.forEach(function (c) {
+            c.classList.remove('ring-2', 'ring-teal-600');
+        });
+        carte.classList.add('ring-2', 'ring-teal-600');
+    });
+});
 // ------------------------------------------------------------
 // ÉTAPE 3 : Afficher les cours (US01)
 // ------------------------------------------------------------
