@@ -4,7 +4,19 @@
 // Aucune solution n'est fournie : à vous de jouer !
 // ============================================================
 
-
+ /*<article
+          class="cursor-pointer overflow-hidden rounded-2xl bg-white shadow-sm ring-2 ring-teal-600 transition hover:shadow-md"
+          data-id="yoga">
+          <img src="assets/images/yoga.svg" alt="Visuel du cours Yoga Flow" class="h-36 w-full object-cover" />
+          <div class="space-y-1 p-4">
+            <span
+              class="inline-block rounded-full bg-teal-50 px-2.5 py-0.5 text-xs font-medium text-teal-700">Yoga</span>
+            <h3 class="text-lg font-semibold text-slate-900">Yoga Flow</h3>
+            <p class="text-sm text-slate-600">60 min, avec Camille Roux</p>
+            <p class="pt-1 text-base font-bold text-slate-900">12 € <span class="text-sm font-normal text-slate-500">par
+                place</span></p>
+          </div>
+        </article>*/
 // ------------------------------------------------------------
 // ÉTAPE 0 : Découvrir les données
 // ------------------------------------------------------------
@@ -13,8 +25,7 @@
 //  - Que contient un cours ? Et un créneau ?
 //  - Comment accéder au prix du 2e cours ? Au 1er créneau du 3e cours ?
 // TODO : affichez `cours` dans la console avec console.log(), puis explorez-le.
-
-
+console.log(cours)
 // ------------------------------------------------------------
 // ÉTAPE 1 : Sélectionner les éléments du DOM
 // ------------------------------------------------------------
@@ -24,6 +35,38 @@
 //  summary-count, summary-total, confirm-button, message
 // TODO : récupérez ces éléments et rangez-les dans des constantes.
 // Question : quelle est la différence entre getElementById et querySelector ?
+
+const container = document.getElementById('courses-container');
+container.innerHTML = '';
+cours.forEach(element => {
+    const carte = document.createElement('article');
+    carte.className = 'cursor-pointer overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-200 transition hover:shadow-md';
+    carte.dataset.id = element.id;
+    carte.innerHTML = `
+        <img src="${element.image}"
+             alt="Visuel du cours ${element.nom}"
+             class="h-36 w-full object-cover" />
+        <div class="space-y-1 p-4">
+            <span class="inline-block rounded-full bg-teal-50 px-2.5 py-0.5 text-xs font-medium text-teal-700">
+                ${element.categorie}
+            </span>
+            <h3 class="text-lg font-semibold text-slate-900">
+                ${element.nom}
+            </h3>
+            <p class="text-sm text-slate-600">
+                ${element.duree}, avec ${element.coach}
+            </p>
+
+            <p class="pt-1 text-base font-bold text-slate-900">
+                ${element.prix} €
+                <span class="text-sm font-normal text-slate-500">
+                    par place
+                </span>
+            </p>
+        </div>
+    `;
+    container.appendChild(carte);
+});
 
 
 // ------------------------------------------------------------
