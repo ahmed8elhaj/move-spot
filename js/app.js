@@ -36,6 +36,28 @@ console.log(cours)
 // TODO : récupérez ces éléments et rangez-les dans des constantes.
 // Question : quelle est la différence entre getElementById et querySelector ?
 
+// ------------------------------------------------------------
+// ÉTAPE 2 : État de l'application
+// ------------------------------------------------------------
+// L'application doit "se souvenir" de ses choix pendant la session.
+// TODO : déclarez les variables d'état nécessaires.
+// Question : de quelles informations avez-vous besoin ?
+//  (cours choisi, créneau choisi, emplacements choisis...)
+// Indice : pourquoi un tableau est-il adapté pour les emplacements choisis ?
+
+
+// ------------------------------------------------------------
+// ÉTAPE 3 : Afficher les cours (US01)
+// ------------------------------------------------------------
+// TODO : écrivez une fonction qui parcourt `cours` et crée une carte par cours.
+//  - Étudiez d'abord une carte statique dans index.html (c'est votre modèle).
+//  - Videz ensuite #courses-container, puis recréez les cartes depuis les données.
+//  - Chaque carte affiche : visuel, catégorie, nom, durée, coach, prix.
+// Questions :
+//  - Quelle boucle ou méthode de tableau allez-vous utiliser ?
+//  - Comment stocker l'id du cours sur la carte (indice : data-*) ?
+//  - Les template literals (`...${valeur}...`) peuvent-ils vous aider ?
+
 const container = document.getElementById('courses-container');
 container.innerHTML = '';
 cours.forEach(element => {
@@ -63,45 +85,9 @@ cours.forEach(element => {
                     par place
                 </span>
             </p>
-        </div>
-    `;
+        </div>`;
     container.appendChild(carte);
 });
-
-
-// ------------------------------------------------------------
-// ÉTAPE 2 : État de l'application
-// ------------------------------------------------------------
-// L'application doit "se souvenir" de ses choix pendant la session.
-// TODO : déclarez les variables d'état nécessaires.
-// Question : de quelles informations avez-vous besoin ?
-//  (cours choisi, créneau choisi, emplacements choisis...)
-// Indice : pourquoi un tableau est-il adapté pour les emplacements choisis ?
-
-const cartes = document.querySelectorAll('.cursor-pointer');
-cartes.forEach(carte => {
-    carte.addEventListener('click', function () {
-        console.log(carte.dataset.nom);
-        message.classList.toggle('ring-2');
-        message.classList.toggle('ring-teal-600');
-        cartes.forEach(function (c) {
-            c.classList.remove('ring-2', 'ring-teal-600');
-        });
-        carte.classList.add('ring-2', 'ring-teal-600');
-    });
-});
-// ------------------------------------------------------------
-// ÉTAPE 3 : Afficher les cours (US01)
-// ------------------------------------------------------------
-// TODO : écrivez une fonction qui parcourt `cours` et crée une carte par cours.
-//  - Étudiez d'abord une carte statique dans index.html (c'est votre modèle).
-//  - Videz ensuite #courses-container, puis recréez les cartes depuis les données.
-//  - Chaque carte affiche : visuel, catégorie, nom, durée, coach, prix.
-// Questions :
-//  - Quelle boucle ou méthode de tableau allez-vous utiliser ?
-//  - Comment stocker l'id du cours sur la carte (indice : data-*) ?
-//  - Les template literals (`...${valeur}...`) peuvent-ils vous aider ?
-
 
 // ------------------------------------------------------------
 // ÉTAPE 4 : Sélectionner un cours (US02)
@@ -114,18 +100,41 @@ cartes.forEach(carte => {
 //  - Faut-il un écouteur par carte, ou un seul sur le conteneur ? Quels sont les avantages ?
 //  - Comment retrouver le cours à partir de l'id lu dans la carte ?
 //  - Que faut-il réinitialiser quand on change de cours ?
+const creneaux = document.getElementById('slots-container');
+const cartes = document.querySelectorAll('#courses-container article');
+cartes.forEach(carte => {
+    carte.addEventListener('click', function () {
+        console.log(carte.dataset.id);
+        cartes.forEach(c => {
+            c.classList.remove('ring-2', 'ring-teal-600');
+            c.classList.add('ring-1', 'ring-slate-200');
+        });
+        carte.classList.remove('ring-1', 'ring-slate-200');
+        carte.classList.add('ring-2', 'ring-teal-600');
+ // ------------------------------------------------------------
+ // ÉTAPE 5 : Afficher et sélectionner un créneau (US03)
+ // ------------------------------------------------------------
+ // TODO : affichez les créneaux du cours sélectionné.
+ //  - Mettez à jour #selected-course-title avec le nom du cours.
+ //  - Le créneau choisi doit être identifiable visuellement.
+ //  - Changer de créneau doit vider la sélection d'emplacements.
+ // Questions :
+ //  - Quand cette fonction doit-elle être appelée ?
+ //  - Que se passe-t-il si aucun cours n'est encore sélectionné ?
+        const coursSelectionne = cours.find(element => element.id === carte.dataset.id);
+        console.log(coursSelectionne);
+        creneaux.innerHTML = '';
+        coursSelectionne.creneaux.forEach(element => {
+            const buttonCreanaux = document.createElement('button');
+            buttonCreanaux.className = 'rounded-xl border px-4 py-2 text-sm font-medium transition border-slate-300 bg-white text-slate-800 hover:border-teal-600'
+            buttonCreanaux.dataset.id = element.id;
+            buttonCreanaux.textContent = element.jour + ' ' + element.heure;
+            creneaux.appendChild(buttonCreanaux);
+            console.log(buttonCreanaux.className);
+        });
+    });
+});
 
-
-// ------------------------------------------------------------
-// ÉTAPE 5 : Afficher et sélectionner un créneau (US03)
-// ------------------------------------------------------------
-// TODO : affichez les créneaux du cours sélectionné.
-//  - Mettez à jour #selected-course-title avec le nom du cours.
-//  - Le créneau choisi doit être identifiable visuellement.
-//  - Changer de créneau doit vider la sélection d'emplacements.
-// Questions :
-//  - Quand cette fonction doit-elle être appelée ?
-//  - Que se passe-t-il si aucun cours n'est encore sélectionné ?
 
 
 // ------------------------------------------------------------
