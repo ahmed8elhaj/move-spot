@@ -102,6 +102,8 @@ cours.forEach(element => {
 //  - Que faut-il réinitialiser quand on change de cours ?
 const creneaux = document.getElementById('slots-container');
 const cartes = document.querySelectorAll('#courses-container article');
+const coursTitle =document.getElementById('selected-course-title')
+
 cartes.forEach(carte => {
     carte.addEventListener('click', function () {
         console.log(carte.dataset.id);
@@ -111,16 +113,23 @@ cartes.forEach(carte => {
         });
         carte.classList.remove('ring-1', 'ring-slate-200');
         carte.classList.add('ring-2', 'ring-teal-600');
- // ------------------------------------------------------------
- // ÉTAPE 5 : Afficher et sélectionner un créneau (US03)
- // ------------------------------------------------------------
- // TODO : affichez les créneaux du cours sélectionné.
- //  - Mettez à jour #selected-course-title avec le nom du cours.
- //  - Le créneau choisi doit être identifiable visuellement.
- //  - Changer de créneau doit vider la sélection d'emplacements.
- // Questions :
- //  - Quand cette fonction doit-elle être appelée ?
- //  - Que se passe-t-il si aucun cours n'est encore sélectionné ?
+        
+        const coursGetData = cours.find(element => element.id === carte.dataset.id);
+        coursTitle.textContent = `${coursGetData .nom}`;
+        
+        console.log(coursTitle.textContent);
+        
+
+        // ------------------------------------------------------------
+        // ÉTAPE 5 : Afficher et sélectionner un créneau (US03)
+        // ------------------------------------------------------------
+        // TODO : affichez les créneaux du cours sélectionné.
+        //  - Mettez à jour #selected-course-title avec le nom du cours.
+        //  - Le créneau choisi doit être identifiable visuellement.
+        //  - Changer de créneau doit vider la sélection d'emplacements.
+        // Questions :
+        //  - Quand cette fonction doit-elle être appelée ?
+        //  - Que se passe-t-il si aucun cours n'est encore sélectionné ?
         const coursSelectionne = cours.find(element => element.id === carte.dataset.id);
         console.log(coursSelectionne);
         creneaux.innerHTML = '';
@@ -131,8 +140,25 @@ cartes.forEach(carte => {
             buttonCreanaux.textContent = element.jour + ' ' + element.heure;
             creneaux.appendChild(buttonCreanaux);
             console.log(buttonCreanaux.className);
-        });
+        })
     });
+});
+const buttonCreanauxSelector = document.querySelectorAll('#slots-container button')
+buttonCreanauxSelector.forEach(button => {
+    button.addEventListener('click', () => {
+        buttonCreanauxSelector.fforEach(c => {
+            c.classList.remove('bg-teal-600');
+            c.classList.add('bg-white');
+        });
+      buttonCreanauxSelector.classList.remove('bg-white');
+        buttonCreanauxSelector.classList.add('bg-teal-600');
+    });
+
+
+
+
+
+            
 });
 
 
