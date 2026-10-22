@@ -25,7 +25,7 @@
 //  - Que contient un cours ? Et un créneau ?
 //  - Comment accéder au prix du 2e cours ? Au 1er créneau du 3e cours ?
 // TODO : affichez `cours` dans la console avec console.log(), puis explorez-le.
-console.log(cours)
+
 // ------------------------------------------------------------
 // ÉTAPE 1 : Sélectionner les éléments du DOM
 // ------------------------------------------------------------
@@ -89,7 +89,6 @@ cours.forEach(element => {
     container.appendChild(carte);
 
 });
-
 // ------------------------------------------------------------
 // ÉTAPE 4 : Sélectionner un cours (US02)
 // ------------------------------------------------------------
@@ -104,10 +103,9 @@ cours.forEach(element => {
 const creneaux = document.getElementById('slots-container');
 const cartes = document.querySelectorAll('#courses-container article');
 const coursTitle = document.getElementById('selected-course-title')
-const coachTitle =document.getElementById('coach-nom')
+const coachTitle = document.getElementById('coach-nom')
 cartes.forEach(carte => {
     carte.addEventListener('click', function () {
-        console.log(carte.dataset.id);
         cartes.forEach(c => {
             c.classList.remove('ring-2', 'ring-teal-600');
             c.classList.add('ring-1', 'ring-slate-200');
@@ -118,12 +116,8 @@ cartes.forEach(carte => {
         const coursGetData = cours.find(element => element.id === carte.dataset.id);
         coursTitle.textContent = `${coursGetData.nom}`;
 
-        console.log(coursTitle.textContent);
-
-
-
-        const coachNom = cours.find(element=> element.id === carte.dataset.id );
-        coachTitle.textContent=`${coachNom.coach}`;
+        const coachNom = cours.find(element => element.id === carte.dataset.id);
+        coachTitle.textContent = `${coachNom.coach}`;
 
 
         // ------------------------------------------------------------
@@ -137,27 +131,23 @@ cartes.forEach(carte => {
         //  - Quand cette fonction doit-elle être appelée ?
         //  - Que se passe-t-il si aucun cours n'est encore sélectionné ?
         const coursSelectionne = cours.find(element => element.id === carte.dataset.id);
-        console.log(coursSelectionne);
         creneaux.innerHTML = '';
         coursSelectionne.creneaux.forEach(element => {
             const buttonCreanaux = document.createElement('button');
-            buttonCreanaux.className = 'rounded-xl border px-4 py-2 text-sm font-medium transition border-slate-300 bg-white text-slate-800 hover:border-teal-600'
+            buttonCreanaux.className = 'rounded-xl border px-4 py-2 text-sm font-medium transition border-slate-300 text-slate-800 hover:border-teal-600'
             buttonCreanaux.dataset.id = element.id;
             buttonCreanaux.textContent = element.jour + ' ' + element.heure;
             creneaux.appendChild(buttonCreanaux);
-            console.log(buttonCreanaux.className);
-            const buttonSelector = document.querySelectorAll('#slots-container button');
-            console.log(buttonSelector);
-            
-// --the button how selected chenge the background into green
 
-            buttonSelector.forEach(function (button) {
-                button.addEventListener('click', function () {
-                    console.log(carte);
-                    buttonSelector.forEach(function (c) {
-                        c.classList.remove('text-white', 'bg-teal-700');
-                    });
-                    button.classList.add('text-white', 'bg-teal-700');
+
+            //  change the color of creanaux button
+
+            buttonCreanaux.addEventListener('click', function () {
+                const buttonSelector = document.querySelectorAll('#slots-container button');
+                buttonSelector.forEach(button => {
+                    button.classList.remove('text-white', 'bg-teal-700');
+                })
+                buttonCreanaux.classList.add('text-white', 'bg-teal-700');
 // ------------------------------------------------------------
 // ÉTAPE 6 : Afficher le plan de la salle (US04)
 // ------------------------------------------------------------
@@ -169,15 +159,38 @@ cartes.forEach(carte => {
 //  - Comment construire "A1" à partir d'une rangée et d'un numéro ?
 //  - Comment savoir si un emplacement est dans la liste des occupés (includes) ?
 //  - Faut-il une boucle imbriquée ? Pourquoi ?
+                const seatsContainer = document.getElementById('seats-container');
+                seatsContainer.innerHTML = '';
+                for (let i = 0; i < rangees.length; i++) {
+                    for (let j = 1; j <= tapisParRangee; j++) {
+                        const seatButton = document.createElement('button')
+                        seatButton.className = "seat h-11 rounded-lg text-xs font-semibold transition border border-slate-300 bg-white text-slate-700 hover:border-teal-600";
+                        seatButton.dataset.id = rangees[i] + j;
+                        seatButton.textContent = rangees[i] + j;
+                        seatsContainer.appendChild(seatButton);
 
 
+                        if (element.occupes.includes(seatButton.dataset.id)) {
+                            seatButton.disabled = true;
+                            seatButton.classList.add('text-white', 'bg-teal-700');
 
+                        } else {
+                            seatButton.disabled = false;
+                        }
+                    };
+                };
 
-                });
             });
         })
     });
 });
+
+
+
+
+
+
+
 
 
 
