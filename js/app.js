@@ -172,7 +172,8 @@ cartes.forEach(carte => {
 
                         if (element.occupes.includes(seatButton.dataset.id)) {
                             seatButton.disabled = true;
-                            seatButton.classList.add('text-white', 'bg-teal-700');
+                            seatButton.classList.add('text-white', 'bg-slate-400');
+                            seatButton.classList.remove('hover:border-teal-600');
 
                         } else {
                             seatButton.disabled = false;
