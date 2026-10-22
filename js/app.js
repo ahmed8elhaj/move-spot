@@ -87,6 +87,7 @@ cours.forEach(element => {
             </p>
         </div>`;
     container.appendChild(carte);
+
 });
 
 // ------------------------------------------------------------
@@ -103,7 +104,7 @@ cours.forEach(element => {
 const creneaux = document.getElementById('slots-container');
 const cartes = document.querySelectorAll('#courses-container article');
 const coursTitle = document.getElementById('selected-course-title')
-
+const coachTitle =document.getElementById('coach-nom')
 cartes.forEach(carte => {
     carte.addEventListener('click', function () {
         console.log(carte.dataset.id);
@@ -118,6 +119,11 @@ cartes.forEach(carte => {
         coursTitle.textContent = `${coursGetData.nom}`;
 
         console.log(coursTitle.textContent);
+
+
+
+        const coachNom = cours.find(element=> element.id === carte.dataset.id );
+        coachTitle.textContent=`${coachNom.coach}`;
 
 
         // ------------------------------------------------------------
@@ -142,6 +148,7 @@ cartes.forEach(carte => {
             console.log(buttonCreanaux.className);
             const buttonSelector = document.querySelectorAll('#slots-container button');
             console.log(buttonSelector);
+            
 // --the button how selected chenge the background into green
 
             buttonSelector.forEach(function (button) {
@@ -151,12 +158,6 @@ cartes.forEach(carte => {
                         c.classList.remove('text-white', 'bg-teal-700');
                     });
                     button.classList.add('text-white', 'bg-teal-700');
-                });
-            });
-        })
-    });
-});
-
 // ------------------------------------------------------------
 // ÉTAPE 6 : Afficher le plan de la salle (US04)
 // ------------------------------------------------------------
@@ -168,6 +169,17 @@ cartes.forEach(carte => {
 //  - Comment construire "A1" à partir d'une rangée et d'un numéro ?
 //  - Comment savoir si un emplacement est dans la liste des occupés (includes) ?
 //  - Faut-il une boucle imbriquée ? Pourquoi ?
+
+
+
+
+                });
+            });
+        })
+    });
+});
+
+
 
 
 // ------------------------------------------------------------
