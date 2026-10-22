@@ -102,7 +102,7 @@ cours.forEach(element => {
 //  - Que faut-il réinitialiser quand on change de cours ?
 const creneaux = document.getElementById('slots-container');
 const cartes = document.querySelectorAll('#courses-container article');
-const coursTitle =document.getElementById('selected-course-title')
+const coursTitle = document.getElementById('selected-course-title')
 
 cartes.forEach(carte => {
     carte.addEventListener('click', function () {
@@ -113,12 +113,12 @@ cartes.forEach(carte => {
         });
         carte.classList.remove('ring-1', 'ring-slate-200');
         carte.classList.add('ring-2', 'ring-teal-600');
-        
+
         const coursGetData = cours.find(element => element.id === carte.dataset.id);
-        coursTitle.textContent = `${coursGetData .nom}`;
-        
+        coursTitle.textContent = `${coursGetData.nom}`;
+
         console.log(coursTitle.textContent);
-        
+
 
         // ------------------------------------------------------------
         // ÉTAPE 5 : Afficher et sélectionner un créneau (US03)
@@ -140,28 +140,22 @@ cartes.forEach(carte => {
             buttonCreanaux.textContent = element.jour + ' ' + element.heure;
             creneaux.appendChild(buttonCreanaux);
             console.log(buttonCreanaux.className);
+            const buttonSelector = document.querySelectorAll('#slots-container button');
+            console.log(buttonSelector);
+// --the button how selected chenge the background into green
+
+            buttonSelector.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    console.log(carte);
+                    buttonSelector.forEach(function (c) {
+                        c.classList.remove('text-white', 'bg-teal-700');
+                    });
+                    button.classList.add('text-white', 'bg-teal-700');
+                });
+            });
         })
     });
 });
-const buttonCreanauxSelector = document.querySelectorAll('#slots-container button')
-buttonCreanauxSelector.forEach(button => {
-    button.addEventListener('click', () => {
-        buttonCreanauxSelector.fforEach(c => {
-            c.classList.remove('bg-teal-600');
-            c.classList.add('bg-white');
-        });
-      buttonCreanauxSelector.classList.remove('bg-white');
-        buttonCreanauxSelector.classList.add('bg-teal-600');
-    });
-
-
-
-
-
-            
-});
-
-
 
 // ------------------------------------------------------------
 // ÉTAPE 6 : Afficher le plan de la salle (US04)
